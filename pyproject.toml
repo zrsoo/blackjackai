@@ -1,7 +1,40 @@
 [project]
 name = "blackjackai"
 version = "0.1.0"
-description = "Add your description here"
+description = "Blackjack simulator + policy training (SB3-ready) with rules config + action masking"
 readme = "README.md"
 requires-python = ">=3.13"
-dependencies = []
+dependencies = [
+  "numpy>=1.26",
+  "gymnasium>=0.29",
+  "pydantic>=2.7",
+  "pyyaml>=6.0",
+  "torch",
+  "stable-baselines3",
+  "sb3-contrib",
+  "fastapi",
+  "uvicorn[standard]",
+]
+
+[project.optional-dependencies]
+dev = ["pytest", "ruff", "black", "mypy", "tensorboard"]
+
+[tool.ruff]
+line-length = 100
+target-version = "py313"
+
+[tool.black]
+line-length = 100
+
+[tool.mypy]
+python_version = "3.13"
+strict = true
+warn_return_any = true
+warn_unused_configs = true
+
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[tool.setuptools]
+package-dir = {"" = "src"}

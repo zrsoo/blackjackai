@@ -1,0 +1,46 @@
+shoe:
+  decks: 6
+  penetration: 0.75  # reshuffle when <= 25% remains
+
+table:
+  min_bet_units: 1
+  max_bet_units: 50
+  bet_ramp_units: [1, 2, 4, 8, 12, 16, 24, 32, 40, 50]  # used only when counting enabled
+
+rules:
+  blackjack_payout: 1.5   # 3:2 => win = bet * 1.5 (profit), plus you keep your stake in accounting
+  dealer_hits_soft_17: true
+  dealer_has_hole_card: true
+  dealer_peeks_for_blackjack: true
+
+  allow_double: true
+  double_after_split: true
+  double_on_any_two: true
+
+  allow_split: true
+  max_splits: 3           # number of additional splits (total hands up to max_splits+1)
+  resplit_aces: false
+  hit_split_aces: false   # typical: one card only after splitting Aces
+
+  allow_surrender: true   # late surrender (after dealer peek if peek exists)
+
+counting:
+  enabled: false          # toggle this
+  system: "hilo"
+  true_count_floor: -10
+  true_count_ceil: 10
+  # optional simple “bet ramp” mapping
+  bet_ramp_by_true_count:
+    "-2": 1
+    "-1": 1
+    "0": 1
+    "1": 2
+    "2": 4
+    "3": 8
+    "4": 12
+    "5": 16
+    "6": 24
+    "7": 32
+    "8": 40
+    "9": 50
+    "10": 50
