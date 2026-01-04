@@ -1,6 +1,6 @@
 from __future__ import annotations
 from typing import Dict, List, Literal
-from pydantic import BaseModel, Field, field_validator
+from pydantic import BaseModel, Field, ValidationInfo, field_validator
 
 class ShoeConfig(BaseModel):
     decks: int = Field(6, ge=1, le=8)
@@ -41,7 +41,7 @@ class RulesConfig(BaseModel):
 
     @field_validator("dealer_peeks_for_blackjack")
     @classmethod
-    def _peek_requires_hole_card(cls, v: bool, info) -> bool:
+    def _peek_requires_hole_card(cls, v: bool, info: ValidationInfo) -> bool:
         # If there is no hole card (European no-hole-card), peeking doesn't make sense.
         # We allow it but it should be false in that ruleset; warn by raising.
         dealer_has_hole_card = info.data.get("dealer_has_hole_card", True)
@@ -72,7 +72,7 @@ class CountingConfig(BaseModel):
         return v
 
 class AppConfig(BaseModel):
-    shoe: ShoeConfig = ShoeConfig()
-    table: TableConfig = TableConfig()
-    rules: RulesConfig = RulesConfig()
-    counting: CountingConfig = CountingConfig()
+    shoe: ShoeConfig = ShoeConfig()  # type: ignore
+    table: TableConfig = TableConfig()  # type: ignore
+    rules: RulesConfig = RulesConfig()  # type: ignore
+    counting: CountingConfig = CountingConfig()  # type: ignore
